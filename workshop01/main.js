@@ -94,6 +94,7 @@ app.get('/information', (req, resp) => {
             //API key is in keys.news
             const params = {
                 country: countryCode,
+                category: 'technology',
                 apiKey: keys.news
             }
             return (Promise.all([ result, getNews(params) ]));
