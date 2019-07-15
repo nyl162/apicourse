@@ -57,7 +57,9 @@ app.get('/map', (req, resp) => {
         key: keys.map,
         center: `${coord.lat},${coord.lon}`,
         zoom: 10,
-        size:'200x200'
+        size:'200x200',
+        format:'PNG',
+        markers:`size:mid|color:orange|label:A|${coord.lat},${coord.lon}`
     }
 
     getMap({ qs: params, encoding: null})
