@@ -55,8 +55,9 @@ app.get('/map', (req, resp) => {
     //API key is in keys.map
     const params = {
         key: keys.map,
-        center: coord,
-        zoom: 8
+        center: `${coord.lat},${coord.lon}`,
+        zoom: 10,
+        size:'200x200'
     }
 
     getMap({ qs: params, encoding: null})
