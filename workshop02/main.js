@@ -19,6 +19,8 @@ const db = CitiesDB({
 
 const app = express();
 
+app.set('etag',false)
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -26,21 +28,63 @@ app.use(express.urlencoded({ extended: true }));
 
 // Mandatory workshop
 // TODO GET /api/states
+app.get('/api/states',(req,res)=>{
+	res.type('application/json');
+	db.findAllStates().then(result=>{
+		res.set('X-Date',(new Date()).toISOString())
+		res.status(200).json(result);
+	}).catch(err=>{
+		res.status(400).json({error:err});
+	})
+})
 
 
 
 
 // TODO GET /api/state/:state
+app.get('/api/state/:state',(req,res)=>{
+	const state = req.params.state
 
-
-
+	res.type('application/json');
+	db.findAllStates().then(result=>{
+		if(result.indexOf(state.toUpperCase()) < 0 ){
+			res.status(400).json({error: `Not a valid state: ${state}`});
+		}
+		return db.findCitiesByState(state/*, {offset:0 , limit:10}*/ )
+	}).then(result=>{
+		res.status(200).json(result.map(val=>`/api/city/${val}`));
+	}).catch(err=>{
+		res.status(400).json({error:err});
+	})
+})
 
 // TODO GET /api/city/:cityId
+app.get('/api/city/:cityId',(req,res)=>{
+	const city_id = req.params.cityId
 
+	console.log(city_id)
 
+	res.type('application/json');
+	db.findCityById(city_id).then(result=>{
+		res.status(200).json(result);
+	}).catch(err=>{
+		res.status(404).json({error:err});
+	})
+})
 
 // TODO POST /api/city
-
+app.post('/api/city',(req,res)=>{
+	const cityParams = db.form2json(req.body)
+	//console.log(req.body,cityParams)
+	
+	res.type('application/json');
+	db.insertCity(cityParams).then(result=>{
+		res.status(201).json(result)
+	}).catch(err=>{
+		res.status(400).json({error:err});
+	})
+	//res.status(200).json(cityParams);
+})
 
 
 
