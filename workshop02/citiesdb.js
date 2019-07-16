@@ -86,6 +86,7 @@ f.prototype.findAllStates = function() {
 }
 
 f.prototype.insertCity = function(params) {
+	params._id = (Math.floor(Math.random() * 5000000)+ 5000000) + '';
 	return (
 		this.getDB()
 			.then(db => 

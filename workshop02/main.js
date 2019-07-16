@@ -75,7 +75,7 @@ app.get('/api/city/:cityId',(req,res)=>{
 // TODO POST /api/city
 app.post('/api/city',(req,res)=>{
 	const cityParams = db.form2json(req.body)
-	//console.log(req.body,cityParams)
+	console.log(req.body,cityParams)
 	
 	res.type('application/json');
 	db.insertCity(cityParams).then(result=>{
