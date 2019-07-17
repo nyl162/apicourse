@@ -62,7 +62,7 @@ app.get('/api/state/:state',(req,res)=>{
 	res.type('application/json');
 	db.countCitiesInState(state).then(result=>{
 		if(result <= 0 ){
-			res.status(400).json({error: `Not a valid state: ${state}`});
+			res.status(404).json({error: `Not a valid state: ${state}`});
 		}
 		return db.findCitiesByState(state, {offset: offset , limit: limit} )
 	}).then(result=>{

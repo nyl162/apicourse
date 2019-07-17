@@ -43,7 +43,19 @@ paths:
                   type: array
                   items:
                     type: string
-
+        400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+        404:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+                
   /api/states:
     get:
       description: Return a list of valid 2 character states
