@@ -18,7 +18,7 @@ const CitiesDB = require('./citiesdb');
 //Rename _keys.json file to keys.json
 const keys = require('./keys.json')
 
-console.info(`Using ${keys.mongo}`);
+//console.info(`Using ${keys.mongo}`);
 
 // TODO change your databaseName and collectioName 
 // if they are not the defaults below
@@ -35,9 +35,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // TODO 1/2 Load schemans
-
-
-
+const citySchema = require('./schema/city-schema.json');
+//console.info('citySchema--->',citySchema)
+new OpenAPIValidator({apiSpecPath: join(__dirname,'schema','city-api.yaml')}).install(app)
 
 // Start of workshop
 
@@ -88,10 +88,9 @@ app.get('/api/city/:cityId',(req,res)=>{
 })
 
 // TODO POST /api/city
-app.post('/api/city',(req,res)=>{
+app.post('/api/city',schemaValidator.validate({ body: citySchema}),(req,res)=>{
 	const cityParams = db.form2json(req.body)
 	//console.log(req.body,cityParams)
-	
 	res.type('application/json');
 	db.insertCity(cityParams).then(result=>{
 		res.status(201).json(result)
