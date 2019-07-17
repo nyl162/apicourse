@@ -16,7 +16,8 @@
     "express-openapi-validator": "^1.2.1",
     "express-range": "^2.0.1",
     "mongodb": "^3.2.7",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "0.0.16-4.0.3"

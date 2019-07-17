@@ -12,6 +12,7 @@
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "express-range": "^2.0.1",
-    "mongodb": "^3.2.7"
+    "mongodb": "^3.2.7",
+    "uuid": "^3.3.2"
   }
 }
