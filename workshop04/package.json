@@ -15,7 +15,7 @@
     "express": "^4.17.1",
     "express-cache-controller": "^1.1.0",
     "express-json-validator-middleware": "^2.0.0",
-    "express-openapi-validator": "^1.2.1",
+    "express-openapi-validator": "^1.2.2",
     "express-preconditions": "^1.0.5",
     "express-range": "^2.0.1",
     "mongodb": "^3.2.7",

@@ -79,15 +79,18 @@ paths:
       description: Add new city
       operationId: addNewCity
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: "city-schema.json#"
+              $ref: "city-schema.json"
       responses: 
         201:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: "city-schema.json"
         400:
           description: Error
           content:
