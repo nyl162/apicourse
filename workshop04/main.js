@@ -20,7 +20,8 @@ const express = require('express')
 const CitiesDB = require('./citiesdb');
 
 const serviceId = uuid().substring(0, 8);
-const serviceName = `zips-${serviceId}`
+//const serviceName = `zips-${serviceId}`
+const serviceName = 'zips';
 
 //Load application keys
 //Rename _keys.json file to keys.json
@@ -62,7 +63,12 @@ new OpenAPIValidator({apiSpecPath: join(__dirname,'schema','city-api.yaml')}).in
 
 // Mandatory workshop
 // TODO GET /api/states
-app.get('/api/states',(req,res)=>{
+app.get('/api/states',
+	cacheControl({ maxAge: 30, private:false}),
+	(req,res)=>{
+
+	console.info('>>>>>get list of states -->', new Date())
+
 	res.type('application/json');
 	db.findAllStates().then(result=>{
 		res.set('X-Date',(new Date()).toISOString())
@@ -205,7 +211,31 @@ db.getDB()
 
 			// TODO 3/3 Add service registration here
 
-
+			consul.agent.service.register({
+				id: serviceId,
+				name:serviceName,
+				port: PORT,
+				check:{
+					//http:`http://localhost:${PORT}/health`,
+					//interval:'5s',
+					'ttl':'5s',
+					deregistercriticalserviceafter: '10s'
+				}
+			})
+			.catch(err=>{
+				console.error(err)
+			})
+			//Heartbeat
+			setInterval(()=>{
+				console.info(serviceId,'heartbeat', new Date())
+					consul.agent.check.pass({
+						id:`service:${serviceId}`
+					})
+					.catch(err=>{
+						console.error(err)
+					})
+				},5000// time in ms
+			)
 
 
 		});
