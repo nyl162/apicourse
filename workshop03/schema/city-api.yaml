@@ -50,7 +50,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/error"
         404:
-          description: Error
+          description: Not Found
           content:
             application/json:
               schema:
@@ -67,6 +67,27 @@ paths:
             application/json:
               schema:
                 $ref: "city-schema.json#/definitions/state"
+        400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+  
+  /api/city:
+    post:
+      description: Add new city
+      operationId: addNewCity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "city-schema.json#"
+      responses: 
+        201:
+          description: Success
+          content:
+            application/json:
         400:
           description: Error
           content:
