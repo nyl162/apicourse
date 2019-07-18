@@ -217,9 +217,9 @@ db.getDB()
 				port: PORT,
 				check:{
 					//http:`http://localhost:${PORT}/health`,
-					//interval:'5s',
-					'ttl':'5s',
-					deregistercriticalserviceafter: '10s'
+					//interval:'30s',
+					'ttl':'30s',
+					deregistercriticalserviceafter: '120s'
 				}
 			})
 			.catch(err=>{
@@ -234,7 +234,7 @@ db.getDB()
 					.catch(err=>{
 						console.error(err)
 					})
-				},5000// time in ms
+				},30000// time in ms
 			)
 
 

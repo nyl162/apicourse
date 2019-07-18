@@ -22,6 +22,83 @@ components:
           type: string
       required:
       - error
+    
+    city:
+      type: object
+      properties:
+        _id:
+          type: string
+        city:
+          type: string
+        loc:
+          type: array
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+        pop:
+          type: integer
+          minimum: 300
+        state:
+          type: string
+          enum:
+          - MA
+          - RI
+          - NH
+          - ME
+          - VT
+          - CT
+          - NY
+          - NJ
+          - PA
+          - DE
+          - DC
+          - MD
+          - VA
+          - WV
+          - NC
+          - SC
+          - GA
+          - FL
+          - AL
+          - TN
+          - MS
+          - KY
+          - OH
+          - IN
+          - MI
+          - IA
+          - WI
+          - MN
+          - SD
+          - ND
+          - MT
+          - IL
+          - MO
+          - KS
+          - NE
+          - LA
+          - AR
+          - OK
+          - TX
+          - CO
+          - WY
+          - ID
+          - UT
+          - AZ
+          - NM
+          - NV
+          - CA
+          - HI
+          - OR
+          - WA
+          - AK
+          - SG
+      required:
+      - city
+      - loc
+      - pop
+      - state
 
 paths:
   /api/state/{stateId}:
@@ -83,18 +160,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "city-schema.json"
+              $ref: "#/components/schemas/city"
       responses: 
         201:
           description: Success
           content:
             application/json:
               schema:
-                $ref: "city-schema.json"
+                $ref: "#/components/schemas/city"
         400:
           description: Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error"
-  
